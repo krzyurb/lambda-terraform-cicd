@@ -3,5 +3,5 @@ terraform.tfvars
 *.tfstate
 *.tfstate*
 .DS_Store
-tmp/
 node_modules/
+dist/

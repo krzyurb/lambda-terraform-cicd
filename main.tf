@@ -7,16 +7,11 @@ provider "aws" {
   skip_metadata_api_check     = true
   skip_requesting_account_id  = true
   endpoints {
-    apigateway     = "http://localhost:4566"
-    lambda         = "http://localhost:4566"
-    iam            = "http://localhost:4566"
-    s3             = "http://localhost:4566"
+    apigateway = "http://localhost:4566"
+    lambda     = "http://localhost:4566"
+    iam        = "http://localhost:4566"
+    s3         = "http://localhost:4566"
   }
-}
-
-resource "aws_s3_bucket" "s3-example" {
-  bucket = "terraform-getting-started-guide"
-  acl    = "private"
 }
 
 resource "aws_iam_role" "iam_for_lambda" {
@@ -40,20 +35,17 @@ EOF
 }
 
 data "archive_file" "lambda_code" {
-  type = "zip"
-  output_path = "${path.module}/lambda_function_payload.zip}"
-  source_dir = "${path.module}/src"
+  type        = "zip"
+  output_path = "${path.module}/dist/lambda_archive.zip"
+  source_dir  = "${path.module}/src"
 }
 
 resource "aws_lambda_function" "hello_lambda" {
   filename      = "${data.archive_file.lambda_code.output_path}"
   function_name = "lambda_function_name"
   role          = "${aws_iam_role.iam_for_lambda.arn}"
-
   handler       = "lambda.handler"
-
-  runtime = "nodejs12.x"
-
+  runtime       = "nodejs12.x"
   environment {
     variables = {
       foo = "bar"
