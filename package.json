@@ -1,0 +1,7 @@
+{
+  "name": "lambda-terraform-cicd",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "krzyurb",
+  "license": "MIT"
+}
