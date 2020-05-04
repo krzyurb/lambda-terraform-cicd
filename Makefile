@@ -1,7 +1,8 @@
 DOCKER_COMPOSE = docker-compose
 
 init:
-	terraform apply
+	cd ./lambda && yarn install
+	cd ./infrastructure && terraform init
 
 up:
 	$(DOCKER_COMPOSE) up -d --remove-orphans

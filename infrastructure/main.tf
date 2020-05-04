@@ -37,7 +37,7 @@ EOF
 data "archive_file" "lambda_code" {
   type        = "zip"
   output_path = "${path.module}/dist/lambda_archive.zip"
-  source_dir  = "${path.module}/src"
+  source_dir  = "../${path.module}/lambda"
 }
 
 resource "aws_lambda_function" "hello_lambda" {
